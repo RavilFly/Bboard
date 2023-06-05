@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+    </head>
+    <body>
+        {% block title %}
+        <h1>Создать объявление</h1>
+        <hr>
+        {% endblock title %}
+
+        {% block content %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <input type="submit" value="Сохранить"/>
+        </form>
+        {% endblock content %}
+    </body>
+</html>

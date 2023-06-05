@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Объявления</title>
+    </head>
+    <body>
+    {% block content %}
+    {% if post_list %}
+    {% for post in post_list %}
+        <p><h2>{{ post.title }}</h2></p>
+        <hr>
+        <p>{{ post.content|safe }}</p>
+        <p>Создано: {{ post.author }} в категории {{ post.get_category_display }}</p>
+        <hr>
+    {% endfor %}
+    {% else %}
+        Объявлений нет
+    {% endif %}
+    {% endblock content %}
+    </body>
+</html>

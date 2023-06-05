@@ -1,3 +1,32 @@
-from django.shortcuts import render
+from django.views import generic
+from .models import Post, User
+from .forms import PostCreateForm
 
-# Create your views here.
+class PostList(generic.ListView):
+    model = Post
+    ordering = '-created'
+    template_name = 'post_list.html'
+    context_object_name = 'post_list'
+
+class PostDetail(generic.DetailView):
+    model = Post
+    template_name = 'post_detail.html'
+
+
+class PostCreate(generic.CreateView):
+    model = Post
+    template_name = 'post_edit.html'
+    form_class = PostCreateForm
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = User.objects.get(id=self.request.user.id)
+        self.object.save()
+        result = super().form_valid(form)
+        return result
+
+
+class PostUpdate(generic.UpdateView):
+    model = Post
+    template_name = 'post_edit.html'
+    form_class = PostCreateForm
