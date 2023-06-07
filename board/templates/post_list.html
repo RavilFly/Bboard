@@ -11,7 +11,7 @@
         <p><h2>{{ post.title }}</h2></p>
         <hr>
         <p>{{ post.content|safe }}</p>
-        <p>Создано: {{ post.author }} в категории {{ post.get_category_display }}</p>
+        <p>Автор поста: {{ post.author }} <br>Категория {{ post.get_category_display }}</p>
         <hr>
     {% endfor %}
     {% else %}

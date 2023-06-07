@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Post
+from .models import Post, Response
 
 
 class PostCreateForm(forms.ModelForm):
@@ -15,4 +15,14 @@ class PostCreateForm(forms.ModelForm):
             'title': 'Заголовок',
             'content': 'Контент (текст, изображения...):',
             'category': 'Категория'
+        }
+
+class ResponseCreateForm(forms.ModelForm):
+    class Meta:
+        model = Response
+        fields = [
+            'text',
+        ]
+        labels = {
+            'text': 'Текст отклика.'
         }
