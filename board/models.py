@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.urls import reverse
 
 
@@ -20,7 +21,7 @@ class Post(models.Model):
     ]
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    content = RichTextField()
+    content = RichTextUploadingField()
     category = models.CharField(max_length=48, choices=CATEGORIES)
     created = models.DateTimeField(auto_now_add=True)
     file = models.FileField(upload_to='user_media')
