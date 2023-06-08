@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
 
-    </head>
-    <body>
+{% extends 'main.html' %}
         {% block title %}
-        <h1>Создать объявление</h1>
-        <hr>
-        {% endblock title %}
-
+        <title> Создать объявление</title>
+        {% endblock title%}
         {% block content %}
         <form method="POST">
             {% csrf_token %}
@@ -17,5 +11,3 @@
             <input type="submit" value="Сохранить"/>
         </form>
         {% endblock content %}
-    </body>
-</html>

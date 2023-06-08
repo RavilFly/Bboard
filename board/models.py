@@ -35,3 +35,4 @@ class Response(models.Model):
     time_in = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    accept = models.CharField(max_length=1, null=True)

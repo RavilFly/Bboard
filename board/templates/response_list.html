@@ -1,20 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Все отклики</title>
-    </head>
-    <body>
+{% extends 'main.html' %}
+        {% block title %}
+        <title> Отклики</title>
+        {% endblock title%}
+
+
     {% block content %}
     {% if response_list %}
-    {% for response in response_list %}
-        <p>{{ response.text }}</p>
-        <p>Отклик на "{{ response.post.title }}" от пользователя {{ response.user }} {{ response.time_in|date:'d.m.y' }}"</p>
-        <hr>
-    {% endfor %}
+        {% for response in response_list %}
+        {% if response.accept == 'Y' or response.accept is None %}
+            <p>{{ response.text }}</p>
+            <p>Отклик на "{{ response.post.title }}" от пользователя {{ response.user }} {{ response.time_in|date:'d.m.y' }}"</p>
+                    {% if response.accept == 'Y' %}
+                        <p><b>Отклик принят. </p>
+                    {% else %}
+                        <a href="{% url 'accept' pk=response.pk %}"><button>Принять</button></a>
+                        <a href="{% url 'deny' pk=response.pk %}"><button>Отклонить</button></a>
+                    {% endif %}
+                <hr>
+            {% endif %}
+        {% endfor %}
     {% else %}
         Откликов нет
     {% endif %}
     {% endblock content %}
-    </body>
-</html>

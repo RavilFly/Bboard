@@ -1,4 +1,8 @@
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import HttpResponseRedirect
+from django.urls import reverse
 from .models import Post, User, Response
 from .forms import PostCreateForm, ResponseCreateForm
 
@@ -13,7 +17,7 @@ class PostDetail(generic.DetailView):
     template_name = 'post_detail.html'
 
 
-class PostCreate(generic.CreateView):
+class PostCreate(LoginRequiredMixin, generic.CreateView):
     model = Post
     template_name = 'post_edit.html'
     form_class = PostCreateForm
@@ -26,12 +30,12 @@ class PostCreate(generic.CreateView):
         return result
 
 
-class PostUpdate(generic.UpdateView):
+class PostUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Post
     template_name = 'post_edit.html'
     form_class = PostCreateForm
 
-class ResponseCreate(generic.CreateView):
+class ResponseCreate(LoginRequiredMixin, generic.CreateView):
     model = Response
     template_name = 'response.html'
     form_class = ResponseCreateForm
@@ -45,11 +49,30 @@ class ResponseCreate(generic.CreateView):
         result = super().form_valid(form)
         return result
 
-class ResponseList(generic.ListView):
+class ResponseList(LoginRequiredMixin, generic.ListView):
     model = Response
     template_name = 'response_list.html'
     context_object_name = 'response_list'
 
+@login_required()
+def response_accept(request, pk):
+    response = Response.objects.get(pk=pk)
+    response.accept = 'Y'
+    response.save()
+    # send_mail(
+    #     subject=f'Доска объявлений: отлик принят',
+    #     message=f'Ваш отклик на пост "{response.post.title}" принят',
+    #     from_email='rawil-m@yandex.ru',
+    #     recipient_list=[response.user.email]
+    # )
+    return HttpResponseRedirect(reverse('response_list'))
+
+@login_required()
+def response_not_accept(request, pk):
+    response = Response.objects.get(pk=pk)
+    response.accept = 'N'
+    response.save()
+    return HttpResponseRedirect(reverse('response_list'))
 
 class SuccessView(generic.TemplateView):
     template_name = 'success.html'

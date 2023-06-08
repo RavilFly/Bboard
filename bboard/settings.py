@@ -63,7 +63,7 @@ ROOT_URLCONF = "bboard.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR/'templates'],
+        "DIRS": ['bboard/templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -120,13 +120,14 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = "static/"
+#STATICFILES_DIRS = [BASE_DIR / "/static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGIN_URL = 'sign/login/'
+LOGIN_URL = '/sign/login/'
 LOGIN_REDIRECT_URL = '/'
 
 EMAIL_HOST = 'smtp.yandex.ru'
@@ -163,7 +164,7 @@ CKEDITOR_CONFIGS = {
                        'Language']},
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
             {'name': 'insert',
-             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+             'items': ['Image', 'html5video', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
             '/',
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
@@ -174,7 +175,7 @@ CKEDITOR_CONFIGS = {
                 # put the name of your editor.ui.addButton here
                 'Preview',
                 'Maximize',
-                #'html5video',
+                'html5video',
                 #'youtube',
 
             ]},
