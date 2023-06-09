@@ -2,6 +2,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect
+from django.core.mail import send_mail
 from django.urls import reverse
 from .models import Post, User, Response
 from .forms import PostCreateForm, ResponseCreateForm
@@ -59,12 +60,12 @@ def response_accept(request, pk):
     response = Response.objects.get(pk=pk)
     response.accept = 'Y'
     response.save()
-    # send_mail(
-    #     subject=f'Доска объявлений: отлик принят',
-    #     message=f'Ваш отклик на пост "{response.post.title}" принят',
-    #     from_email='rawil-m@yandex.ru',
-    #     recipient_list=[response.user.email]
-    # )
+    send_mail(
+        subject=f'Отлик принят.',
+        message=f'Ваш отклик на пост "{response.post.title}" принят',
+        from_email='rawil-m@yandex.ru',
+        recipient_list=[response.user.email]
+    )
     return HttpResponseRedirect(reverse('response_list'))
 
 @login_required()
