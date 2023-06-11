@@ -31,6 +31,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
+SITE_URL = 'http://127.0.01:8000'
 
 
 # Application definition
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     "ckeditor",
     "ckeditor_uploader",
     "sign",
+    'django_apscheduler',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +138,9 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
 
 
 CKEDITOR_UPLOAD_PATH = "/uploads/"

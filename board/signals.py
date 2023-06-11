@@ -13,5 +13,5 @@ def notify_response(sender, instance, created, **kwargs):
             message=f'Отклик: "{instance.text}"',
             from_email=DEFAULT_FROM_EMAIL,
             recipient_list=[instance.post.author.email],
-        
+
     )
