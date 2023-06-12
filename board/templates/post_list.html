@@ -6,6 +6,7 @@
     {% block content %}
     {% if user.is_authenticated %}
     <a href="{% url 'create_post' %}"><button> Создать пост </button></a>
+    <a href="{% url 'response_list' %}"><button> Просмотреть отклики на посты </button></a>
     {% endif %}
     {% if post_list %}
     {% for post in post_list %}
@@ -13,6 +14,7 @@
         <hr>
         <p>{{ post.content|safe }}</p>
         <p>Автор поста: {{ post.author }} <br>Категория {{ post.get_category_display }}</p>
+        <a href="{% url 'post_detail' pk=post.pk %}"><button>Подробнее...</button></a>
         <hr>
     {% endfor %}
     {% else %}

@@ -55,6 +55,20 @@ class ResponseList(LoginRequiredMixin, generic.ListView):
     template_name = 'response_list.html'
     context_object_name = 'response_list'
 
+    def get_queryset(self):
+        queryset = Response.objects.filter(post__author=self.request.user)
+        return queryset
+
+class PostResponseList(LoginRequiredMixin, generic.ListView):
+    model = Response
+    template_name = 'response_list.html'
+    context_object_name = 'response_list'
+
+    def get_queryset(self):
+        pk=self.kwargs.get('pk')
+        queryset = Response.objects.filter(post__author=self.request.user, post__id=pk)
+        return queryset
+
 @login_required()
 def response_accept(request, pk):
     response = Response.objects.get(pk=pk)

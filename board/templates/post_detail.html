@@ -3,12 +3,18 @@
         <title> Доска объявлений</title>
         {% endblock %}
     {% block content %}
+    {% if user.id == post.author.id %}
     <p><a href="{% url 'post_update' pk=post.pk %}"><button>Редактировать</button></a></p>
+    {% endif %}
     <h1>{{ post.title}}</h1>
     {{ post.created|date:'d.m.y' }}
     <p>{{ post.content|safe }}</p>
     <hr>
     Отправил: {{ post.author }} <br>
     Категория: {{ post.get_category_display }} <br>
+    {% if user.id == post.author.id %}
+    <button style="float: leftt;"> <a href="{% url 'response_post' pk=post.pk %}">Просмотреть отклики</a></button>
+    {% else %}
     <button style="float: leftt;"> <a href="{% url 'respond' pk=post.pk %}">Откликнуться</a></button>
+    {% endif %}
     {% endblock content %}
